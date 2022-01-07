@@ -11,7 +11,6 @@
 1. Jalankan perintah `npm install` dan tunggu hingga semua module terinstall
 
 ## Settings Database
-### 1 . Enviroment ##
 1. Pastikan telah terinstall aplikasi mysql & phpmyadmin
 2. Atur database yang digunakan pada `config/knexfile.js`
 
