@@ -15,6 +15,23 @@ class pengeluaranModel {
         return barang;
     }
 
+    updatePengeluaran(idBarang, pengeluaran) {
+
+        var currentDate = momentTz().tz('Asia/Jakarta').format('YYYY-MM-DD HH:mm:ss')
+
+        const barang = db('tb_pengeluaran').where('id_barang', idBarang).update({
+            'pengeluaran': pengeluaran,
+            'created_at': currentDate
+        })
+        return barang;
+    }
+
+    deletePengeluaran(idBarang) {
+
+        const barang = db('tb_pengeluaran').where('id_barang', idBarang).del()
+        return barang;
+    }
+
     sumPengeluaran() {
         const pengeluaran = db.from('tb_pengeluaran').sum('pengeluaran As total')
         return pengeluaran;

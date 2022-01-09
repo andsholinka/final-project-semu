@@ -72,12 +72,25 @@ class barangController {
 
             if (checkIdBarang.length == 0) throw new Error('Id Barang Tidak Tersedia');
 
+            if (checkIdBarang[0].jenis != req.body.jenis) throw new Error('Tidak Bisa Merubah Jenis Barang');
+
             await barangModel.updateBarang(req.body, req.params.id);
             console.log("success update data Barang");
             res.status(201).send({
                 status: res.statusCode,
                 message: 'Successfully update data Barang',
             })
+
+            // ! Conditional (ternary) operator in JavaScript
+            // checkIdBarang[0].jenis === 'supplier' ? console.log("if") : console.log("else")
+
+            if (checkIdBarang[0].jenis === 'supplier') {
+
+                const pengeluaran = req.body.harga_asli * req.body.stok
+
+                await pengeluaranModel.updatePengeluaran(req.params.id, pengeluaran);
+
+            }
         } catch (e) {
             console.log(e);
             res.status(400).send({
@@ -98,6 +111,9 @@ class barangController {
                 status: res.statusCode,
                 message: 'Successfully delete Barang',
             })
+
+            await pengeluaranModel.deletePengeluaran(req.params.id);
+
         } catch (e) {
             console.log(e);
             res.status(400).send({
